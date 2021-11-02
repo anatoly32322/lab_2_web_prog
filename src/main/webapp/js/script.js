@@ -115,14 +115,22 @@ function validateY(){
 
 function validateX(){
     let xButton = document.querySelectorAll("input[name=x]");
+    let errorFlag = false;
 
     xButton.forEach(function (button){
-        console.log(button.value);
+        if (button.checked && x != undefined){
+            errorFlag = true;
+        }
         if (button.checked){
             x = button.value;
-            console.log("success");
         }
     })
+
+    if (errorFlag){
+        addToErrorMessage("X must be chosen only once.");
+        console.log("check x");
+        return false;
+    }
 
     if (x === undefined) {
         addToErrorMessage("X must be chosen.");
@@ -135,14 +143,22 @@ function validateX(){
 
 function validateR(){
     let rButton = document.querySelectorAll("input[name=r]");
+    let errorFlag = false;
 
     rButton.forEach(function (button){
-        console.log(button.value);
+        if (button.checked && r != undefined){
+            errorFlag = true;
+        }
         if (button.checked){
             r = button.value;
-            console.log("success");
         }
     })
+
+    if (errorFlag){
+        addToErrorMessage("R must be chosen only once.");
+        console.log("check r");
+        return false;
+    }
 
     if (r === undefined) {
         addToErrorMessage("R must be chosen.");
@@ -154,12 +170,31 @@ function validateR(){
 }
 
 
+function sendRequest(){
+    $('#errors').empty();
+    return  $.ajax({
+        url: "controller",
+        method: "POST",
+        data: {
+            'x': x,
+            'y': y,
+            'r': r,
+        },
+        success: function (data) {
+            $('#result-table tr:first').after(data);
+            return true;
+        }
+    });
+    return false;
+}
+
+
 function submit() {
     if (validateX() && validateR() && validateY()) {
         alert("Валидация прошла успешно!");
-        alert(x);
-        alert(r);
-        alert(y);
+        if (sendRequest()){
+            ;
+        }
     }
     else {
         alert("Валидация не пройдена.");

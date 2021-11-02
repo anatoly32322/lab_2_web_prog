@@ -1,6 +1,7 @@
 <%@ page import="java.sql.SQLOutput" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Collections" %>
+<%@ page import="com.custom.Result" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -48,7 +49,7 @@
 <body>
 <table class="headerContainer">
     <tr>
-        <td><h1 class="mainHeaderText">Web. Лабораторная работа №1.</h1></td>
+        <td><h1 class="mainHeaderText">Web. Лабораторная работа №2.</h1></td>
         <td class="rightHeaderPart">
             <h2>Вариант № 13101</h2>
             <h3>Бритков Анатолий, P3213</h3>
@@ -90,16 +91,33 @@
         </td>
     </tr>
 </table>
+
 <table id="result-table">
+    <tbody>
     <tr class="table-header">
-        <th>X</th>
-        <th>Y</th>
-        <th>R</th>
-        <th>Локальное время</th>
-        <th>Время исполнения</th>
-        <th>Попадание</th>
+        <th class="coords-col">X</th>
+        <th class="coords-col">Y</th>
+        <th class="coords-col">R</th>
+        <th class="time-col">Время запроса</th>
+        <th class="time-col">Время исполнения</th>
+        <th class="verdict-col">Попадание</th>
+
     </tr>
+    <%
+        try {
+            ArrayList<Result> results = (ArrayList<Result>) session.getAttribute("results");
+            Collections.reverse(results);
+            for (Result result : results) {
+                out.print("<tr>" + result.generateRow() + "<tr>");
+            }
+        } catch (NullPointerException ex){
+            ex.printStackTrace();
+        }
+    %>
+
+    </tbody>
 </table>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="js/script.js"></script>
