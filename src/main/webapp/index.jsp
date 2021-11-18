@@ -51,7 +51,7 @@
     <tr>
         <td><h1 class="mainHeaderText">Web. Лабораторная работа №2.</h1></td>
         <td class="rightHeaderPart">
-            <h2>Вариант № 13101</h2>
+            <h2>Вариант № 13601</h2>
             <h3>Бритков Анатолий, P3213</h3>
         </td>
     </tr>
